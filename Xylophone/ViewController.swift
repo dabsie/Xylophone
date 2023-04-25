@@ -10,81 +10,30 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-    var audioPlayer: AVAudioPlayer?
+    var player: AVAudioPlayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func buttonPressed(_ sender: UIButton) {
-        let number = sender.tag
-        switch number {
-        case 1:
-            let pathToSound = Bundle.main.path(forResource: "C", ofType: "wav")!
-            let url = URL(fileURLWithPath: pathToSound)
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            }catch{
-                //error
-            }
-        case 2:
-            let pathToSound = Bundle.main.path(forResource: "D", ofType: "wav")!
-            let url = URL(fileURLWithPath: pathToSound)
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            }catch{
-                //error
-            }
-        case 3:
-            let pathToSound = Bundle.main.path(forResource: "E", ofType: "wav")!
-            let url = URL(fileURLWithPath: pathToSound)
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            }catch{
-                //error
-            }
-        case 4:
-            let pathToSound = Bundle.main.path(forResource: "F", ofType: "wav")!
-            let url = URL(fileURLWithPath: pathToSound)
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            }catch{
-                //error
-            }
-        case 5:
-            let pathToSound = Bundle.main.path(forResource: "G", ofType: "wav")!
-            let url = URL(fileURLWithPath: pathToSound)
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            }catch{
-                //error
-            }
-        case 6:
-            let pathToSound = Bundle.main.path(forResource: "A", ofType: "wav")!
-            let url = URL(fileURLWithPath: pathToSound)
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            }catch{
-                //error
-            }
-        case 7:
-            let pathToSound = Bundle.main.path(forResource: "B", ofType: "wav")!
-            let url = URL(fileURLWithPath: pathToSound)
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer?.play()
-            }catch{
-                //error
-            }
-        default:
-            break
+        playSound(soundName: sender.currentTitle!)
+
+          //Reduces the sender's (the button that got pressed) opacity to half.
+          sender.alpha = 0.5
+
+          //Code should execute after 0.2 second delay.
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+              //Bring's sender's opacity back up to fully opaque.
+              sender.alpha = 1.0
+          }
         }
+
+    func playSound(soundName: String) {
+        let url = Bundle.main.url(forResource: soundName, withExtension: "wav")
+        player = try! AVAudioPlayer(contentsOf: url!)
+        player.play()
     }
 }
+
 
